@@ -7,7 +7,7 @@ HasCJKLanguage = true
 enableRobotsTXT = true
 
 # ブログのタイトル
-title = "Showsan Blog"
+title = "作業メモとかアウトプットとか"
 
 theme = "mainroad"
 paginate = 20
@@ -32,8 +32,8 @@ paginate = 20
 
 # SNS等のユーザー名
 [Params.widgets.social]
-  twitter = "uvrub"
-  github = "kato-k"
+  twitter = "AJ_sk_show"
+  github = "showsan"
 
 [Params.sidebar]
     home = "right"
