@@ -1,5 +1,5 @@
 # 公開するページのURL
-baseURL = "https://kat0h.github.io/hugo-blog-template"
+baseURL = "https://showsan.github.io"
 
 languageCode = "ja"
 DefaultContentLanguage = "ja"
@@ -7,15 +7,15 @@ HasCJKLanguage = true
 enableRobotsTXT = true
 
 # ブログのタイトル
-title = "hugo-blog-template"
+title = "Showsan Blog"
 
 theme = "mainroad"
 paginate = 20
 
 # 自己紹介
 [Author]
-    name = "Author"
-    bio = "ここに自己紹介を入れることができます"
+    name = "ShowSan"
+    bio = "最近はずっとGitlabのCI/CDをやっています。"
     avatar = "img/avatar.png"
 
 [Params]
