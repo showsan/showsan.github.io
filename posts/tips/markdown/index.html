@@ -3,19 +3,18 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta http-equiv=x-ua-compatible content="IE=edge">
-<title>Categories - 作業メモとかアウトプットとか</title>
+<title>VSCodeでMarkdownを扱うときの備忘録 - 作業メモとかアウトプットとか</title>
 <script>(function(a,b){a[b]=a[b].replace("no-js","js")})(document.documentElement,"className")</script>
 <meta name=description content>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Categories">
-<meta name=twitter:description content>
+<meta name=twitter:title content="VSCodeでMarkdownを扱うときの備忘録">
+<meta name=twitter:description content="忘れがちな設定 VSCodeの設定 スニペットの設定 マークダウンのスニペットはデフォルトでオフなので設定を加える必要がある。 { &#34;[markdown]&#34;: { &#34;editor.quickSuggestions&#34;: { &#34;other&#34;: true, &#34;comments&#34;: false, &#34;strings&#34;:">
 <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <link rel=dns-prefetch href=//fonts.googleapis.com>
 <link rel=dns-prefetch href=//fonts.gstatic.com>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 <link rel=stylesheet href=/css/style.css>
 <link rel=stylesheet href=/css/custom.css>
-<link rel=alternate type=application/rss+xml href=/categories/index.xml title=作業メモとかアウトプットとか>
 <link rel="shortcut icon" href=/favicon.ico>
 </head>
 <body class=body>
@@ -39,7 +38,7 @@
 <span class=menu__text>1Passwordのススメ</span>
 </a>
 </li>
-<li class=menu__item>
+<li class="menu__item menu__item--active">
 <a class=menu__link href=/posts/tips/markdown/>
 <span class=menu__text>VSCodeでMarkdownを扱うときの備忘録</span>
 </a>
@@ -50,37 +49,83 @@
 </header>
 <div class="wrapper flex">
 <div class=primary>
-<main class="main list" role=main>
-<header class=main__header>
-<h1 class=main__title>Categories</h1>
-</header><article class="list__item post">
-<header class=list__header>
-<h2 class="list__title post__title">
-<a href=/categories/tips/ rel=bookmark>
-Tips
-</a>
-</h2>
-<div class="list__meta meta">
+<main class=main role=main>
+<article class=post>
+<header class=post__header>
+<h1 class=post__title>VSCodeでMarkdownを扱うときの備忘録</h1>
+<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-23T00:00:00Z>October 23, 2022</time></div></div>
-</header>
-<div class="content list__excerpt post__content clearfix">
+<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-23T00:00:00Z>October 23, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/tips/ rel=category>Tips</a>
+</span>
+</div></div>
+</header><div class="content post__content clearfix">
+<h2 id=忘れがちな設定>忘れがちな設定</h2>
+<h3 id=vscodeの設定>VSCodeの設定</h3>
+<h4 id=スニペットの設定>スニペットの設定</h4>
+<p>マークダウンのスニペットはデフォルトでオフなので設定を加える必要がある。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:setting.json data-lang=json:setting.json>{
+  <span style=color:#f92672>&#34;[markdown]&#34;</span>: {
+  <span style=color:#f92672>&#34;editor.quickSuggestions&#34;</span>: {
+    <span style=color:#f92672>&#34;other&#34;</span>: <span style=color:#66d9ef>true</span>,
+    <span style=color:#f92672>&#34;comments&#34;</span>: <span style=color:#66d9ef>false</span>,
+    <span style=color:#f92672>&#34;strings&#34;</span>: <span style=color:#66d9ef>true</span>
+  },
+}
+</code></pre></div><h4 id=filestrimtrailingwhitespace>files.trimTrailingWhitespace</h4>
+<p>ファイルの行の最後にスペースがあると自動で取り除いてくれる機能<br>
+すごい便利だが、Markdownで記事を書いているときとかに自動でトリミングされてしまうと改行が全部なくなるので非常に困る。<br>
+なのでMarkdownをいじるときだけオフにするのが良い</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:setting.json data-lang=json:setting.json>{
+  <span style=color:#f92672>&#34;[markdown]&#34;</span>: {
+        <span style=color:#f92672>&#34;files.trimTrailingWhitespace&#34;</span>: <span style=color:#66d9ef>false</span>,
+  }
+}
+
+</code></pre></div><h3 id=markdown-preview-enhancedの設定>Markdown Preview Enhancedの設定</h3>
+<h4 id=markdown-preview-enhancedbreakonsinglenewline>markdown-preview-enhanced.breakOnSingleNewLine</h4>
+<p>プレビューするときに半角なしでも改行できているように見せるよーという機能<br>
+Markdownで記事を書いたりするときにプラットフォームによっては半角スペース二つなくても改行できてしまうが、そうでないサイトもあるのでオフにすること推奨</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:setting.json data-lang=json:setting.json>{
+  <span style=color:#f92672>&#34;markdown-preview-enhanced.breakOnSingleNewLine&#34;</span>: <span style=color:#66d9ef>false</span>
+}
+</code></pre></div><h3 id=pasteimage>PasteImage</h3>
+<h4 id=ssh先でやるには一工夫いるかも>SSH先でやるには一工夫いるかも</h4>
+<p>これはMarkdownっていうよりかは全般的な話かも<br>
+私は結構自分の開発サーバーになんでもGitCloneしてDocker上でいろいろ動かしたりしながら開発とかする人間なのですが、このブログもその要領でやろうとしてました。<br>
+しかしSSH先のサーバーでPasteImageを使おうとするとうまくいかなかったです。<br>
+多分WindowsからLinuxにSSHしているからーとかいろいろあると思いますが、いったんWindowsでプッシュも全部やることで解決しています。</p>
+<h2 id=まとめ>まとめ</h2>
+<p>備忘録的に書きました。
+追記あれば日付入りでテキトーに追記しようと思います。</p>
 </div>
-</article><article class="list__item post">
-<header class=list__header>
-<h2 class="list__title post__title">
-<a href=/categories/1password/ rel=bookmark>
-1Password
-</a>
-</h2>
-<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-22T00:00:00Z>October 22, 2022</time></div></div>
-</header>
-<div class="content list__excerpt post__content clearfix">
+<footer class=post__footer>
+<div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg>
+<ul class=tags__list>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/tips/ rel=tag>Tips</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/markdown/ rel=tag>Markdown</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/vscode/ rel=tag>VSCode</a>
+</li>
+</ul>
 </div>
+</footer>
 </article>
 </main>
+<div class="authorbox clearfix">
+<figure class=authorbox__avatar>
+<img alt="ShowSan avatar" src=/img/avatar.png class=avatar height=90 width=90>
+</figure>
+<div class=authorbox__header>
+<span class=authorbox__name>ShowSanについて</span>
+</div>
+<div class=authorbox__description>
+最近はずっとGitlabのCI/CDをやっています。
+</div>
+</div>
 </div>
 <aside class=sidebar><div class="widget-search widget">
 <form class=widget-search__form role=search method=get action=https://google.com/search>
