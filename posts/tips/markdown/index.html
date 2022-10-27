@@ -63,7 +63,7 @@
 <h3 id=vscodeの設定>VSCodeの設定</h3>
 <h4 id=スニペットの設定>スニペットの設定</h4>
 <p>マークダウンのスニペットはデフォルトでオフなので設定を加える必要がある。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:setting.json data-lang=json:setting.json>{
   <span style=color:#f92672>&#34;[markdown]&#34;</span>: {
   <span style=color:#f92672>&#34;editor.quickSuggestions&#34;</span>: {
     <span style=color:#f92672>&#34;other&#34;</span>: <span style=color:#66d9ef>true</span>,
@@ -75,7 +75,7 @@
 <p>ファイルの行の最後にスペースがあると自動で取り除いてくれる機能<br>
 すごい便利だが、Markdownで記事を書いているときとかに自動でトリミングされてしまうと改行が全部なくなるので非常に困る。<br>
 なのでMarkdownをいじるときだけオフにするのが良い</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:setting.json data-lang=json:setting.json>{
   <span style=color:#f92672>&#34;[markdown]&#34;</span>: {
         <span style=color:#f92672>&#34;files.trimTrailingWhitespace&#34;</span>: <span style=color:#66d9ef>false</span>,
   }
@@ -85,10 +85,16 @@
 <h4 id=markdown-preview-enhancedbreakonsinglenewline>markdown-preview-enhanced.breakOnSingleNewLine</h4>
 <p>プレビューするときに半角なしでも改行できているように見せるよーという機能<br>
 Markdownで記事を書いたりするときにプラットフォームによっては半角スペース二つなくても改行できてしまうが、そうでないサイトもあるのでオフにすること推奨</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:setting.json data-lang=json:setting.json>{
   <span style=color:#f92672>&#34;markdown-preview-enhanced.breakOnSingleNewLine&#34;</span>: <span style=color:#66d9ef>false</span>
 }
-</code></pre></div><h2 id=まとめ>まとめ</h2>
+</code></pre></div><h3 id=pasteimage>PasteImage</h3>
+<h4 id=ssh先でやるには一工夫いるかも>SSH先でやるには一工夫いるかも</h4>
+<p>これはMarkdownっていうよりかは全般的な話かも<br>
+私は結構自分の開発サーバーになんでもGitCloneしてDocker上でいろいろ動かしたりしながら開発とかする人間なのですが、このブログもその要領でやろうとしてました。<br>
+しかしSSH先のサーバーでPasteImageを使おうとするとうまくいかなかったです。<br>
+多分WindowsからLinuxにSSHしているからーとかいろいろあると思いますが、いったんWindowsでプッシュも全部やることで解決しています。</p>
+<h2 id=まとめ>まとめ</h2>
 <p>備忘録的に書きました。
 追記あれば日付入りでテキトーに追記しようと思います。</p>
 </div>
