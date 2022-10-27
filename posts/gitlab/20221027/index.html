@@ -3,19 +3,18 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta http-equiv=x-ua-compatible content="IE=edge">
-<title>Posts - 作業メモとかアウトプットとか</title>
+<title>AWS上でGitlabRunnerを作った話(とりあえずRunnerだけ) - 作業メモとかアウトプットとか</title>
 <script>(function(a,b){a[b]=a[b].replace("no-js","js")})(document.documentElement,"className")</script>
 <meta name=description content>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Posts">
-<meta name=twitter:description content>
+<meta name=twitter:title content="AWS上でGitlabRunnerを作った話(とりあえずRunnerだけ)">
+<meta name=twitter:description content="ざっと経緯説明 GitlabとGitlabRunnerをAWSで組むことになった。 今回はアカウントAにGitlabを乗せ、アカウントBにGit">
 <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <link rel=dns-prefetch href=//fonts.googleapis.com>
 <link rel=dns-prefetch href=//fonts.gstatic.com>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 <link rel=stylesheet href=/css/style.css>
 <link rel=stylesheet href=/css/custom.css>
-<link rel=alternate type=application/rss+xml href=/posts/index.xml title=作業メモとかアウトプットとか>
 <link rel="shortcut icon" href=/favicon.ico>
 </head>
 <body class=body>
@@ -39,7 +38,7 @@
 <span class=menu__text>1Passwordのススメ</span>
 </a>
 </li>
-<li class=menu__item>
+<li class="menu__item menu__item--active">
 <a class=menu__link href=/posts/gitlab/20221027/>
 <span class=menu__text>AWS上でGitlabRunnerを作った話(とりあえずRunnerだけ)</span>
 </a>
@@ -55,68 +54,79 @@
 </header>
 <div class="wrapper flex">
 <div class=primary>
-<main class="main list" role=main>
-<header class=main__header>
-<h1 class=main__title>Posts</h1>
-</header><article class="list__item post">
-<header class=list__header>
-<h2 class="list__title post__title">
-<a href=/posts/gitlab/20221027/ rel=bookmark>
-AWS上でGitlabRunnerを作った話(とりあえずRunnerだけ)
-</a>
-</h2>
-<div class="list__meta meta">
+<main class=main role=main>
+<article class=post>
+<header class=post__header>
+<h1 class=post__title>AWS上でGitlabRunnerを作った話(とりあえずRunnerだけ)</h1>
+<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
 <svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-27T00:00:00Z>October 27, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/gitlab/ rel=category>Gitlab</a>
 </span>
 </div></div>
-</header>
-<div class="content list__excerpt post__content clearfix">
-ざっと経緯説明 GitlabとGitlabRunnerをAWSで組むことになった。 今回はアカウントAにGitlabを乗せ、アカウントBにGit
+</header><div class="content post__content clearfix">
+<h2 id=ざっと経緯説明>ざっと経緯説明</h2>
+<p>GitlabとGitlabRunnerをAWSで組むことになった。<br>
+今回はアカウントAにGitlabを乗せ、アカウントBにGitlabRunnerを乗せる事になったのでその備忘録</p>
+<h2 id=最終的な構成図>最終的な構成図</h2>
+<p><img src=gitlab.drawio.svg alt=Gitlab></p>
+<p>ちょっとわかりづらいかもしれないんですが、大まかな構成はこんな感じ<br>
+Gitlabの方の解説は後日やるので、一旦Runnerについて書いておきます。</p>
+<h2 id=runnerの説明>Runnerの説明</h2>
+<h3 id=前提条件>前提条件</h3>
+<ul>
+<li>GitlabにはセキュリティグループでIP制限をかけている。</li>
+</ul>
+<h3 id=なぜpublicsubnet二つ>なぜPublicSubnet二つ？</h3>
+<p>そもそもこのGitlabRunnerはRunnerでJobを受けるとFargateSpotを起動してjobを処理するという物になります。<br>
+構築に関しては下記公式を参照しています。<br>
+<a href=https://docs.gitlab.com/runner/configuration/runner_autoscale_aws_fargate/>Autoscaling GitLab CI on AWS Fargate</a><br>
+この構成でJobを処理する際、EC2のGitlabRunnerからGitlabにアクセスする際はElasticIPを割り当てれば問題なく通信できます。<br>
+しかし、Jobを処理するcoordinatorはFargateSPOTで起動するのでElasticIPを割り当てるにはNatが必須になります。<br>
+このときNatGatewayでももちろんいいのですが、いかんせん料金が高い為NatInstanceを利用しています。<br>
+このNatインスタンスもIPを固定しなければならない通信先のみをルーティングし、それ以外はFargate自身で通信をさせているのでPublicSubnetは二つです。</p>
+<h3 id=当たり前だけどnatに通したいルーティングを変えるときは>当たり前だけどNATに通したいルーティングを変えるときは</h3>
+<p>PublicSubnetBのルーティングテーブルに特定IPだけをNatInstanceに向けるようにルーティングする</p>
+<h2 id=まとめ>まとめ</h2>
+<p>IP制限とかかかっていないGitlabにRunnerを単純に使うならこんなの要らないんですけど、自分で立てているGitlabとかに繋ぐときは一工夫必要と。<br>
+今度具体的にこの辺のRunnerを立てたときのレシピとか、これにCodeBuildを連携させたりっていうのも記事にできればなと思います。</p>
 </div>
-<div class="list__footer clearfix">
-<a class="list__footer-readmore btn" href=/posts/gitlab/20221027/>続きを読む…</a>
+<footer class=post__footer>
+<div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg>
+<ul class=tags__list>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/aws/ rel=tag>AWS</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/gitlab/ rel=tag>Gitlab</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/ci/cd/ rel=tag>CI/CD</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/gitlabrunner/ rel=tag>GitlabRunner</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/fargate/ rel=tag>Fargate</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/nat/ rel=tag>Nat</a>
+</li>
+</ul>
 </div>
-</article><article class="list__item post">
-<header class=list__header>
-<h2 class="list__title post__title">
-<a href=/posts/tips/markdown/ rel=bookmark>
-VSCodeでMarkdownを扱うときの備忘録
-</a>
-</h2>
-<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-23T00:00:00Z>October 23, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/tips/ rel=category>Tips</a>
-</span>
-</div></div>
-</header>
-<div class="content list__excerpt post__content clearfix">
-忘れがちな設定 VSCodeの設定 スニペットの設定 マークダウンのスニペットはデフォルトでオフなので設定を加える必要がある。 { "[markdown]": { "editor.quickSuggestions": { "other": true, "comments": false, "strings":
-</div>
-<div class="list__footer clearfix">
-<a class="list__footer-readmore btn" href=/posts/tips/markdown/>続きを読む…</a>
-</div>
-</article><article class="list__item post">
-<header class=list__header>
-<h2 class="list__title post__title">
-<a href=/posts/1password/summary/ rel=bookmark>
-1Passwordのススメ
-</a>
-</h2>
-<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-22T00:00:00Z>October 22, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/1password/ rel=category>1Password</a>
-</span>
-</div></div>
-</header>
-<div class="content list__excerpt post__content clearfix">
-1passwordはいいぞ 昨年から自分のパスワード管理やパスワードの生成を全て1Passwordに委ねている。 それが割とセキュアで便利なので
-</div>
-<div class="list__footer clearfix">
-<a class="list__footer-readmore btn" href=/posts/1password/summary/>続きを読む…</a>
-</div>
+</footer>
 </article>
 </main>
+<div class="authorbox clearfix">
+<figure class=authorbox__avatar>
+<img alt="ShowSan avatar" src=/img/avatar.png class=avatar height=90 width=90>
+</figure>
+<div class=authorbox__header>
+<span class=authorbox__name>ShowSanについて</span>
+</div>
+<div class=authorbox__description>
+最近はずっとGitlabのCI/CDをやっています。
+</div>
+</div>
 </div>
 <aside class=sidebar><div class="widget-search widget">
 <form class=widget-search__form role=search method=get action=https://google.com/search>
