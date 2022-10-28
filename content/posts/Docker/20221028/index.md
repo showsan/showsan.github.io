@@ -11,7 +11,7 @@ tags: ["Docker","AWS","ECR"]
 
 ### ざっとイメージ
 
-![ECR→Docker](../ECRImage.drawio.svg)
+![ECR→Docker](ECRImage.drawio.svg)
 
 ### 前提条件
 
