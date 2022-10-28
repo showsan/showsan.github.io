@@ -27,11 +27,10 @@ ECRにログインをする
 aws ecr get-login-password --region ${your_region} | docker login --username AWS --password-stdin ${your_aws_account_id}.dkr.ecr.${your_region}.amazonaws.com
 ```
 
-:::note warn
-注意  
-STSをしたりする場合は事前にSTSをしておくこと  
-[STSで一時クレデンシャルを発行する](https://dev.classmethod.jp/articles/sts-temporality-credential/)
-:::
+> note  
+>
+> STSをしたりする場合は事前にSTSをしておくこと  
+> [STSで一時クレデンシャルを発行する](https://dev.classmethod.jp/articles/sts-temporality-credential/)
 
 #### 2.Dockerfileからイメージを参照する
 
