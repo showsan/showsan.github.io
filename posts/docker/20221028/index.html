@@ -74,11 +74,11 @@
 <h4 id=1ecrにログイン>1.ECRにログイン</h4>
 <p>ECRにログインをする</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>aws ecr get-login-password --region <span style=color:#e6db74>${</span>your_region<span style=color:#e6db74>}</span> | docker login --username AWS --password-stdin <span style=color:#e6db74>${</span>your_aws_account_id<span style=color:#e6db74>}</span>.dkr.ecr.<span style=color:#e6db74>${</span>your_region<span style=color:#e6db74>}</span>.amazonaws.com
-</code></pre></div><p>:::note warn
-注意<br>
-STSをしたりする場合は事前にSTSをしておくこと<br>
-<a href=https://dev.classmethod.jp/articles/sts-temporality-credential/>STSで一時クレデンシャルを発行する</a>
-:::</p>
+</code></pre></div><blockquote>
+<p>note</p>
+<p>STSをしたりする場合は事前にSTSをしておくこと<br>
+<a href=https://dev.classmethod.jp/articles/sts-temporality-credential/>STSで一時クレデンシャルを発行する</a></p>
+</blockquote>
 <h4 id=2dockerfileからイメージを参照する>2.Dockerfileからイメージを参照する</h4>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Dockerfile data-lang=Dockerfile><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> ${your_aws_account_id}.dkr.ecr.${your_region}.amazonaws.com/testapp:latest</span><span style=color:#960050;background-color:#1e0010>
 </span></code></pre></div><h2 id=参考情報>参考情報</h2>
