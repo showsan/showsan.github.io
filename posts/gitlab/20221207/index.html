@@ -175,10 +175,10 @@ coordinatorはタスク定義で設定になる。<br>
 そのためDockerpull等でCloud破産する可能性が高くなる。</li>
 <li>CodeBuildにElasticIPを付与することができるようになるので、DockerPullの制限に引っかかることは恐らくそうそうなくなる。はず。</li>
 </ol>
-<h5 id=codebuildでdockercache>CodeBuildでDockerCache</h5>
+<h4 id=codebuildでdockercache>CodeBuildでDockerCache</h4>
 <p>CodeBuildでは公式でキャッシュを利用できるが、ビルドプロジェクトを複数のGitプロジェクトで共有したりする際には数時間でキャッシュが消えてしまうため活用ができない<br>
 そのためビルド前に使用している最新のイメージタグを取得してpullし、そのイメージをキャッシュとして使用すれば活用ができる。</p>
-<h5 id=公式ドキュメントの補足>公式ドキュメントの補足</h5>
+<h4 id=公式ドキュメントの補足>公式ドキュメントの補足</h4>
 <p><a href=https://about.gitlab.com/blog/2020/07/31/aws-fargate-codebuild-build-containers-gitlab-runner/#interacting-with-codebuild-through-the-aws-cli>こちらの参考サイト</a>のcodebuild.shだが、改良の余地がある。<br>
 方針としてはこれをそのままコピペして使用すると、Buildが失敗してもスクリプト自体は成功というかたちになってしまうため、CodeBuildのステータスをちゃんと拾ってきて失敗したら強制的にエラーコードを吐かせる必要がある為注意。</p>
 <h3 id=料金について>料金について</h3>
