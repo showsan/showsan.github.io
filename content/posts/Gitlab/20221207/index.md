@@ -144,12 +144,12 @@ CodeBuildはVPC所属とVPCに所属しない事を選択できる。
 そのためDockerpull等でCloud破産する可能性が高くなる。  
 1. CodeBuildにElasticIPを付与することができるようになるので、DockerPullの制限に引っかかることは恐らくそうそうなくなる。はず。  
 
-##### CodeBuildでDockerCache
+#### CodeBuildでDockerCache
 
 CodeBuildでは公式でキャッシュを利用できるが、ビルドプロジェクトを複数のGitプロジェクトで共有したりする際には数時間でキャッシュが消えてしまうため活用ができない  
 そのためビルド前に使用している最新のイメージタグを取得してpullし、そのイメージをキャッシュとして使用すれば活用ができる。  
 
-##### 公式ドキュメントの補足
+#### 公式ドキュメントの補足
 
 [こちらの参考サイト](https://about.gitlab.com/blog/2020/07/31/aws-fargate-codebuild-build-containers-gitlab-runner/#interacting-with-codebuild-through-the-aws-cli)のcodebuild.shだが、改良の余地がある。  
 方針としてはこれをそのままコピペして使用すると、Buildが失敗してもスクリプト自体は成功というかたちになってしまうため、CodeBuildのステータスをちゃんと拾ってきて失敗したら強制的にエラーコードを吐かせる必要がある為注意。  
