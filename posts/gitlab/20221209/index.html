@@ -3,12 +3,12 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta http-equiv=x-ua-compatible content="IE=edge">
-<title>1Passwordのススメ - 作業メモとかアウトプットとか</title>
+<title>GitlabCIの参考資料とTIPS - 作業メモとかアウトプットとか</title>
 <script>(function(a,b){a[b]=a[b].replace("no-js","js")})(document.documentElement,"className")</script>
 <meta name=description content>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="1Passwordのススメ">
-<meta name=twitter:description content="1passwordはいいぞ 昨年から自分のパスワード管理やパスワードの生成を全て1Passwordに委ねている。 それが割とセキュアで便利なので">
+<meta name=twitter:title content="GitlabCIの参考資料とTIPS">
+<meta name=twitter:description content="まず読むべき公式 まずわからなくなったりやり方を知りたければここを読むこと GitLabを使ったCI/CD入門 GitLab CI/CD パイプライン設定リファレンス 複">
 <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <link rel=dns-prefetch href=//fonts.googleapis.com>
 <link rel=dns-prefetch href=//fonts.gstatic.com>
@@ -33,7 +33,7 @@
 <span class=menu__btn-title tabindex=-1>メニュー</span>
 </button>
 <ul class=menu__list>
-<li class="menu__item menu__item--active">
+<li class=menu__item>
 <a class=menu__link href=/posts/1password/summary/>
 <span class=menu__text>1Passwordのススメ</span>
 </a>
@@ -62,63 +62,50 @@
 <main class=main role=main>
 <article class=post>
 <header class=post__header>
-<h1 class=post__title>1Passwordのススメ</h1>
+<h1 class=post__title>GitlabCIの参考資料とTIPS</h1>
 <div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-10-22T00:00:00Z>October 22, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/1password/ rel=category>1Password</a>
+<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-12-09T00:00:00Z>December 09, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/gitlab/ rel=category>Gitlab</a>
 </span>
 </div></div>
 </header><div class="content post__content clearfix">
-<h2 id=1passwordはいいぞ>1passwordはいいぞ</h2>
-<p><img src=2022-10-22-18-24-53.png alt=TOP>
-昨年から自分のパスワード管理やパスワードの生成を全て1Passwordに委ねている。<br>
-それが割とセキュアで便利なので啓蒙活動的な。</p>
-<h3 id=1passwordって>1Passwordって？</h3>
-<p>パスワードを管理してくれるサブスク<br>
-<a href=https://1password.com/jp/sign-up/>1Password</a><br>
-値段は最低$2.9からで滅茶苦茶安い。<br>
-セキュリティ対策とかもバッチリ。</p>
-<p>細かいセキュリティ等に関してはとりあえず公式を見てもらうとして、自分的に使いやすい所を紹介します。</p>
-<h3 id=使いやすいところ>使いやすいところ</h3>
-<h4 id=1対応端末がクソ多い>1.対応端末がクソ多い</h4>
-<p>とりあえずこれを見てほしい。<br>
-<img src=2022-10-22-18-09-02.png alt=対応多すぎ><br>
-いや対応してるアプリが多すぎる。<br>
-何ならAppleWatchも対応しているらしい。<br>
-今のところ自分が使っているのは</p>
-<ul>
-<li>MacOS</li>
-<li>Windows</li>
-<li>iOS</li>
-</ul>
-<p>くらいです。<br>
-基本的になんでも使えるのマジで便利ですね…<br>
-あと端末の使用数の制限もないみたいです。最強。</p>
-<h4 id=2基本的に指紋認証も顔認証も対応している>2.基本的に指紋認証も顔認証も対応している</h4>
-<p>1Passwordはパスワードを入力するときとかアプリ開いてパスワード確認したりするときに認証が必要なんですが、端末固有の認証方法が使えます。<br>
-これはスマホ使っている人だと指紋認証とか顔認証使っていると思うんですが、同じ認証使ってパスワード管理できるの便利なんですよね。<br>
-ただ、たまにマスターパスワードの入力を求められて面倒な時もありますが、そうでもないと不正利用もあるかと思うのであきらめてはいます。<br>
-ちなみにWindowsHelloも使用できるのでWindowsPCでも顔認証ができます。</p>
-<h4 id=3sshキーも管理できるしエージェントとしても使える>3.SSHキーも管理できるし、エージェントとしても使える</h4>
-<p>これマジですごいです。<br>
-自分は今までSSHの秘密鍵を生成して公開キーをアクセス先の鯖に置いたりしていたんですが、もう自分の手元に秘密鍵を置かずに1Passwordで認証することにしました。<br>
-これをやると何が便利って、新しいPC買って鯖にSSHする設定をしないとなーっていうのが1Password入れているだけで終わるんです。超便利。<br>
-この辺のやり方とかそういうのは後日記事にでもしようかなって思います。</p>
-<h3 id=まとめ>まとめ</h3>
-<p>マジで語りつくせないくらいいい機能があり、多分まだ使いこなせていないんだろうなと思っています。<br>
-でもマジでクソ安いし最強に使いやすいのでお勧めです。</p>
+<h2 id=まず読むべき公式>まず読むべき公式</h2>
+<p>まずわからなくなったりやり方を知りたければここを読むこと<br>
+<a href=https://gitlab-docs.creationline.com/ee/ci/introduction/>GitLabを使ったCI/CD入門</a><br>
+<a href=https://gitlab-docs.creationline.com/ee/ci/yaml/README.html>GitLab CI/CD パイプライン設定リファレンス</a></p>
+<h2 id=複数jobにまたがって同じ変数を扱いたい場合>複数Jobにまたがって同じ変数を扱いたい場合</h2>
+<p>例としてはjob1で生成したDockerImageのタグを後続のJob2でも利用したい場合<br>
+基本的にはJobIDとかJobが終わったら変わってしまうようなIDでなく、パイプラインIDやマージリクエストIDを使う事を推奨<br>
+特にマージリクエストのタイミングとマージのタイミングのパイプラインはIDが異なるので、共通させたいならマージリクエストID等を使用する事が多い</p>
+<h2 id=jobをパラレルに実行したいときのはまりどころ>Jobをパラレルに実行したいときのはまりどころ</h2>
+<p>Jobをパラレルに実行したいときは、Jobを同じステージに置くかParallerの設定を追加して多重度を決める。<br>
+このときのはまりどころは二点</p>
+<h3 id=パラレル実行するときに各jobの変数の扱い>パラレル実行するときに各JOBの変数の扱い</h3>
+<p>Jobを同じステージに置く場合はそれぞれのJobに変数や処理を書けば違う処理が走るが、Parallerの場合は同じ処理が多重で動く。<br>
+そういった際はGitlabのプロジェクトの変数をtest_1,test_2のように連番で設定しておき、Jobの中でtest_${CI_NODE_INDEX}みたいな感じで表現することで同じJobの中で変数を変えることができる。<br>
+最近自分はRspecの実行やCloudFormationの更新、Dockerイメージを複数作らないと行けない場合といった、コマンドはほぼ同じだが変数が変わるだけで済む処理みたいな物を並列させている。</p>
+<h3 id=enviromentで環境情報を設定していると並列はできない>enviromentで環境情報を設定していると並列はできない</h3>
+<p>enviromentというのはGitlab上でデプロイ先の環境を定義するオプションです。<br>
+これをつけているとJobが成功する度にGitのSHA渡韓共鳴とともにデプロイが記録されます。<br>
+<a href=https://gitlab-docs.creationline.com/ee/ci/environments/#configuring-environments>環境とデプロイメント</a></p>
+<p>しかしこのオプションをつけていると、並列でJobを動かすことができません。<br>
+理由はGitlabのセーフティとして一つの環境に同時に走らせられるJobは一つだけどいう制限がかかっているためです。<br>
+つまり複数のCloudFormationを更新したいという場合は、並列でDockerImageをBuildしたい！という場合はこのオプションは使用しない用にしなければなりません。</p>
+<h2 id=その他よく読む記事>その他よく読む記事</h2>
+<p><a href=https://qiita.com/utrhira/items/0227a0dde84d193132c2>GitLab での 並列 CI パターン</a><br>
+<a href=https://qiita.com/masakura/items/4ae0a2049608722c1dea>.gitlab-ci.yml を書くときに知っておくといいことあるかも</a></p>
 </div>
 <footer class=post__footer>
 <div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg>
 <ul class=tags__list>
 <li class=tags__item>
-<a class="tags__link btn" href=/tags/1password/ rel=tag>1Password</a>
+<a class="tags__link btn" href=/tags/gitlab/ rel=tag>Gitlab</a>
 </li>
 <li class=tags__item>
-<a class="tags__link btn" href=/tags/%E3%82%A2%E3%83%97%E3%83%AA/ rel=tag>アプリ</a>
+<a class="tags__link btn" href=/tags/gitlabci/ rel=tag>GitlabCI</a>
 </li>
 <li class=tags__item>
-<a class="tags__link btn" href=/tags/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81/ rel=tag>おすすめ</a>
+<a class="tags__link btn" href=/tags/ci/cd/ rel=tag>CI/CD</a>
 </li>
 </ul>
 </div>
