@@ -16,7 +16,7 @@
 	// 	"description": "Log output to console"
 	// }
 	"blogs": {
-		"prefix": "bt",
+		"prefix": "kizitop",
 		"body": [
 			"---",
 			"title: \"${1:TITLE}\"",
