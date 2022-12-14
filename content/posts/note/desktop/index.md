@@ -33,7 +33,7 @@ menu: main
 [Parit GeForce RTX2070 SUPER JS 8GB](https://kakaku.com/item/K0001173640/)
 * 電源  
 [ANTEC NE750 GOLD](https://amzn.asia/d/8o2mfB1)
-* M.2
+* M.2  
 [Crucial P1　CT1000P1SSD8JP](https://shop.tsukumo.co.jp/goods/0405763079018)
 * SSD  
 [Curucial MX500 CT1000MX500SSD1/JP](https://kakaku.com/item/K0001028335/)
