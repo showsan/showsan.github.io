@@ -32,7 +32,6 @@ paginate = 20
 
 # SNS等のユーザー名
 [Params.widgets.social]
-  twitter = "AJ_sk_show"
   github = "showsan"
 
 [Params.sidebar]
