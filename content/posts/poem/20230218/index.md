@@ -54,9 +54,8 @@ JTCの大企業にいたので無駄に金かけで大きい規模の開発に�
 
 
 採算が取れない無駄な大きい規模の開発をするので大体カオスになるのですが、その辺のカオスを味わえたのはJTCならではだなと思いました。  
-この辺の経験があったので下記動画で爆笑することができます。（そういった会社がもし本当に存在するなら！ですが！）  
-
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">『実力ないのにマルチベンダ体制でシステム作るな高校校歌』を作りました。 <a href="https://t.co/5CS4mpcBxL">https://t.co/5CS4mpcBxL</a> <a href="https://t.co/3UNucFD8fT">pic.twitter.com/3UNucFD8fT</a></p>&mdash; よんてんごP (@yontengoP) <a href="https://twitter.com/yontengoP/status/1617466350548680704?ref_src=twsrc%5Etfw">January 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+この辺の経験があったので下記ツイートで爆笑することができます。（そういった会社がもし本当に存在するなら！ですが！）  
+[実力ないのにマルチベンダ体制でシステム作るな高校校歌](https://twitter.com/Canary_Kun/status/1617406484031344640)  
 
 ### JTCの悪いところ
 
