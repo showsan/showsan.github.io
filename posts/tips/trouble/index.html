@@ -3,19 +3,18 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta http-equiv=x-ua-compatible content="IE=edge">
-<title>GitlabCI - 作業メモとかアウトプットとか</title>
+<title>Docker内でnpxがどうしてもタイムアウトした話 - 作業メモとかアウトプットとか</title>
 <script>(function(a,b){a[b]=a[b].replace("no-js","js")})(document.documentElement,"className")</script>
 <meta name=description content>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="GitlabCI">
-<meta name=twitter:description content>
+<meta name=twitter:title content="Docker内でnpxがどうしてもタイムアウトした話">
+<meta name=twitter:description content="発端 DockerでNuxt3を作ろうと下記コマンドをコンテナ内で叩いたらタイムアウトしてしまった。 npx nuxi init . --force エラーコードを保存し忘れてしまっ">
 <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
 <link rel=dns-prefetch href=//fonts.googleapis.com>
 <link rel=dns-prefetch href=//fonts.gstatic.com>
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 <link rel=stylesheet href=/css/style.css>
 <link rel=stylesheet href=/css/custom.css>
-<link rel=alternate type=application/rss+xml href=/tags/gitlabci/index.xml title=作業メモとかアウトプットとか>
 <link rel="shortcut icon" href=/favicon.ico>
 </head>
 <body class=body>
@@ -44,7 +43,7 @@
 <span class=menu__text>AWS上でGitlabRunnerを作った話(とりあえずRunnerだけ)</span>
 </a>
 </li>
-<li class=menu__item>
+<li class="menu__item menu__item--active">
 <a class=menu__link href=/posts/tips/trouble/>
 <span class=menu__text>Docker内でnpxがどうしてもタイムアウトした話</span>
 </a>
@@ -75,30 +74,53 @@
 </header>
 <div class="wrapper flex">
 <div class=primary>
-<main class="main list" role=main>
-<header class=main__header>
-<h1 class=main__title>GitlabCI</h1>
-</header><article class="list__item post">
-<header class=list__header>
-<h2 class="list__title post__title">
-<a href=/posts/gitlab/20221209/ rel=bookmark>
-GitlabCIの参考資料とTIPS
-</a>
-</h2>
-<div class="list__meta meta">
+<main class=main role=main>
+<article class=post>
+<header class=post__header>
+<h1 class=post__title>Docker内でnpxがどうしてもタイムアウトした話</h1>
+<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
-<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2022-12-09T00:00:00Z>December 09, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/gitlab/ rel=category>Gitlab</a>
+<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class=meta__text datetime=2023-02-26T00:00:00Z>February 26, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class=meta__text><a class=meta__link href=/categories/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/ rel=category>トラブル</a>
 </span>
 </div></div>
-</header>
-<div class="content list__excerpt post__content clearfix">
-まず読むべき公式 まずわからなくなったりやり方を知りたければここを読むこと GitLabを使ったCI/CD入門 GitLab CI/CD パイプライン設定リファレンス 複
+</header><div class="content post__content clearfix">
+<h2 id=発端>発端</h2>
+<p>DockerでNuxt3を作ろうと下記コマンドをコンテナ内で叩いたらタイムアウトしてしまった。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>npx nuxi init . --force
+</code></pre></div><p>エラーコードを保存し忘れてしまったが、プロキシ設定かネットワークが雑魚じゃね？っていわれていたのでプロキシ等を見直すことに。<br>
+言うてプロキシなんて設定してないんですけど…</p>
+<h2 id=原因>原因</h2>
+<p>今のサーバーはMBP上に仮想でUbuntuを立てていて、MBPはWifiでネットに繋いでいた。<br>
+このWifiがいつもは5Ghz帯に接続されていたのだが、気がつかないうちに2.4Ghz帯に変更されており、速度が出なくてタイムアウトしていたみたいです。</p>
+<h2 id=対応>対応</h2>
+<p>とりあえず5Ghzの回線につないで2.4Ghzの設定は削除<br>
+無事コマンドが通りましたとさ。</p>
 </div>
-<div class="list__footer clearfix">
-<a class="list__footer-readmore btn" href=/posts/gitlab/20221209/>続きを読む…</a>
+<footer class=post__footer>
+<div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg>
+<ul class=tags__list>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/ rel=tag>トラブル</a>
+</li>
+<li class=tags__item>
+<a class="tags__link btn" href=/tags/%E8%A7%A3%E6%B1%BA%E6%B8%88%E3%81%BF/ rel=tag>解決済み</a>
+</li>
+</ul>
 </div>
+</footer>
 </article>
 </main>
+<div class="authorbox clearfix">
+<figure class=authorbox__avatar>
+<img alt="ShowSan avatar" src=/img/avatar.png class=avatar height=90 width=90>
+</figure>
+<div class=authorbox__header>
+<span class=authorbox__name>ShowSanについて</span>
+</div>
+<div class=authorbox__description>
+最近はずっとGitlabのCI/CDをやっています。
+</div>
+</div>
 </div>
 <aside class=sidebar><div class="widget-search widget">
 <form class=widget-search__form role=search method=get action=https://google.com/search>
